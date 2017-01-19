@@ -12,46 +12,37 @@ using System.Configuration;
 
 namespace PricingTool
 {
-    public class Browse
-    {               
-        IWebDriver driver;
-             
-        public void InitializeTest()
-        {
-            driver = new FirefoxDriver();
-            driver.Manage().Window.Maximize();
-        }
+    public sealed class Browse : IDisposable
+    {
 
-        //Products Names, used for getting url suffix from appsettings
-        public enum Product
-        {
-            AppService,
-            Functions,
-            LogicApps,
-            Storage,
-            APIManagement
-        }
+        public IWebDriver Driver { get; set; }
 
-        public void NavigateTo(Product product)
+        public Browse()
         {
             InitializeTest();
-            INavigation navigation = this.driver.Navigate();
-
-            navigation.GoToUrl(Of(product));
         }
-
-        //For combining url strings
-        private static string Of(Product product)
+        public void InitializeTest()
         {
-            return "https://azure.microsoft.com/en-us" + ConfigurationManager.AppSettings[product.ToString()];
+            Driver = new FirefoxDriver();
+            Driver.Manage().Window.Maximize();
         }
+        
+        public void NavigateTo(string url)
+        {
+            INavigation navigation = this.Driver.Navigate();
+            navigation.GoToUrl(url);
 
-        //implementing
+            WaitForPageToLoad();
+        }
+        
         public void WaitForPageToLoad()
         {
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.Parse("10"));
+            Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.Parse("10"));
         }
 
-        
+        public void Dispose()
+        {
+            Driver.Quit();
+        }
     }
 }

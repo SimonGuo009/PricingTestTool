@@ -17,3 +17,6 @@ C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\o
 C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\obj\Debug\PricingTool.pdb
 C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\bin\Debug\App.config
 C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\obj\Debug\PricingTool.csprojResolveAssemblyReference.cache
+C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\obj\Debug\PricingTool.csproj.ResolveComReference.cache
+C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\obj\Debug\PricingTool.UI.MainFrame.resources
+C:\Users\v-shguo\Documents\Visual Studio 2015\Projects\PricingTool\PricingTool\obj\Debug\PricingTool.csproj.GenerateResource.Cache
