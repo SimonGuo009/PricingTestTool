@@ -32,10 +32,9 @@ namespace PricingTool.Products
         {
         }
 
-        public void OpenProductPricingPage()
+        public void OpenProductPricingPage(Browse browse)
         {
-            Browse browse = new Browse();
-            browse.NavigateTo(Uri.AbsolutePath);
+            browse.NavigateTo(subUri.AbsoluteUri);
         }
 
         public static void SetRegionViaIndex(Browse browse, Region region)
@@ -76,80 +75,81 @@ namespace PricingTool.Products
                 double price = Helper.PriceUnformat(item.Text) * rate;
                 list.Add(price);
             }
+            browse.Driver.Quit();
             return list;
         }
 
         public enum ProductName
         {
-            LinuxVirtualMachines,
-            WindowsVirtualMachines,
-            VirtualMachineScaleSets,
+            //LinuxVirtualMachines,
+            //WindowsVirtualMachines,
+            //VirtualMachineScaleSets,
             AppService,
-            AzureContainerService,
-            AzureContainerRegistry,
+            //AzureContainerService,
+            //AzureContainerRegistry,
             Functions,
-            Batch,
-            ServiceFabric,
-            CloudServices,
-            VirtualNetwork,
-            LoadBalancer,
-            ApplicationGateway,
-            VPNGateway,
-            AzureDNS,
-            ContentDeliveryNetwork,
-            TrafficManager,
-            ExpressRoute,
-            Bandwidth,
+            //Batch,
+            //ServiceFabric,
+            //CloudServices,
+            //VirtualNetwork,
+            //LoadBalancer,
+            //ApplicationGateway,
+            //VPNGateway,
+            //AzureDNS,
+            //ContentDeliveryNetwork,
+            //TrafficManager,
+            //ExpressRoute,
+            //Bandwidth,
             Storage,
-            DataLakeStore,
-            StorSimple,
-            Backup,
-            SiteRecovery,
+            //DataLakeStore,
+            //StorSimple,
+            //Backup,
+            //SiteRecovery,
             LogicApps,
-            MediaServices,
-            AzureSearch,
-            MobileEngagement,
+            //MediaServices,
+            //AzureSearch,
+            //MobileEngagement,
             APIManagement,
-            NotificationHubs,
-            SQLDatabase,
-            SQLDataWarehouse,
-            SQLServerStretchDatabase,
-            DocumentDB,
-            RedisCache,
-            DataFactory,
-            HDInsight,
-            MachineLearning,
-            StreamAnalytics,
-            CognitiveServices,
-            AzureBotService,
-            DataLakeAnalytics,
-            PowerBIEmbedded,
-            DataCatalog,
-            LogAnalytics,
-            AzureAnalysisServices,
-            Dynamics365forCustomerInsights,
-            AzureIoTHub,
-            EventHubs,
-            BizTalkServices,
-            ServiceBus,
-            SecurityCenter,
-            KeyVault,
-            AzureActiveDirectory,
-            AzureActiveDirectoryB2C,
-            AzureActiveDirectoryDomainServices,
-            MultiFactorAuthentication, //_
-            VisualStudioTeamServices,
-            AzureDevTestLabs,
-            ApplicationInsights,
-            HockeyApp,
-            Automation,
-            Scheduler,
-            AzureMonitor,
-            SecurityAndCompliance, //&
-            ProtectionAndRecovery, //&
-            AutomationAndControl, //&
-            InsightAndAnalytics, //&
-            Advisor
+            //NotificationHubs,
+            //SQLDatabase,
+            //SQLDataWarehouse,
+            //SQLServerStretchDatabase,
+            //DocumentDB,
+            //RedisCache,
+            //DataFactory,
+            //HDInsight,
+            //MachineLearning,
+            //StreamAnalytics,
+            //CognitiveServices,
+            //AzureBotService,
+            //DataLakeAnalytics,
+            //PowerBIEmbedded,
+            //DataCatalog,
+            //LogAnalytics,
+            //AzureAnalysisServices,
+            //Dynamics365forCustomerInsights,
+            //AzureIoTHub,
+            //EventHubs,
+            //BizTalkServices,
+            //ServiceBus,
+            //SecurityCenter,
+            //KeyVault,
+            //AzureActiveDirectory,
+            //AzureActiveDirectoryB2C,
+            //AzureActiveDirectoryDomainServices,
+            //MultiFactorAuthentication, //_
+            //VisualStudioTeamServices,
+            //AzureDevTestLabs,
+            //ApplicationInsights,
+            //HockeyApp,
+            //Automation,
+            //Scheduler,
+            //AzureMonitor,
+            //SecurityAndCompliance, //&
+            //ProtectionAndRecovery, //&
+            //AutomationAndControl, //&
+            //InsightAndAnalytics, //&
+            //Advisor
         }
     }
 }

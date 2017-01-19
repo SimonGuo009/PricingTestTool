@@ -17,24 +17,33 @@ namespace PricingTool
     {
         static void Main(string[] args)
         {
-            ProductName product = ProductName.AppService;
-            Region region = Region.asia_pacific_east;
-            Currency currency_1 = Currency.USD;
-            Currency currency_2 = Currency.ARS;
-            double exchangeRate = 15.7;
+            //ProductName product = ProductName.AppService;
+            //Region region = Region.asia_pacific_east;
+            //Currency currency_1 = Currency.USD;
+            //Currency currency_2 = Currency.ARS;
+            //double exchangeRate = 15.7;
 
-            string condition = product.ToString() + " ■ " + region.ToString() + " ■ " + currency_2.ToString();
+            //string condition = product.ToString() + " ■ " + region.ToString() + " ■ " + currency_2.ToString();
 
-            List<double> calculatedDatas = GetExactPricings(product, region, currency_1, exchangeRate);
-            List<double> exactPricingDatas = GetExactPricings(product, region, currency_2);
+            //List<double> calculatedDatas = GetExactPricings(product, region, currency_1, exchangeRate);
+            //List<double> exactPricingDatas = GetExactPricings(product, region, currency_2);
+
+            //CreateExcelFile();
+            //WriteToExcel(condition, calculatedDatas, exactPricingDatas);
 
             CreateExcelFile();
-            WriteToExcel(condition, calculatedDatas, exactPricingDatas);
-            //Console.Clear();
-            //Console.WriteLine(PrintListOnConsole(calculatedDatas));
+            GetAllPricings(Currency.ARS, 15.7);
+            
+        }
 
-            //List<double> exactPricingDatas = GetExactPricings(ProductName.AppService, Region.asia_pacific_east, Currency.ARS);
-            //PrintListOnConsole(exactPricingDatas);
+        static void WriteDatasPerPage(ProductName product, Region region, Currency currency, double exchangeRate)
+        {
+            string condition = product.ToString() + " ■ " + region.ToString() + " ■ " + currency.ToString();
+
+            List<double> calculatedDatas = GetExactPricings(product, region, Currency.USD, exchangeRate);
+            List<double> exactPricingDatas = GetExactPricings(product, region, currency);
+
+            WriteToExcel(condition, calculatedDatas, exactPricingDatas);
         }
 
         static List<double> GetExactPricings(ProductName product, Region region, Currency currency, double rate = 1)
@@ -49,7 +58,7 @@ namespace PricingTool
             return GetPricingDataFromPage(browse, rate);
         }
 
-        static void GetAllPricings()
+        static void GetAllPricings(Currency currency, double exchangeRate)
         {
             Browse browse = new Browse();
 
@@ -57,24 +66,33 @@ namespace PricingTool
             foreach (ProductName prodInEnum in Enum.GetValues(typeof(ProductName)))
             {
                 Product productObject = CreateProduct(prodInEnum);
+                productObject.OpenProductPricingPage(browse);
 
                 //遍历available region
-                foreach (var region in Helper.GetAvailableRegions(browse))
+                foreach (var availableRegion in Helper.GetAvailableRegions(browse))
                 {
-                    string regionName = region.GetAttribute("value");
+                    //GetAvailableRegions方法得到的region的value属性就是我们下拉框选择的依据
+                    string regionName = availableRegion.GetAttribute("value");
                     Helper.SelectOption(browse, regionDropdownLocator, regionName);
 
-                    //遍历currency
-                    foreach (string currencyName in Enum.GetNames(typeof(Currency)))
-                    {
-                        Helper.SelectOption(browse, currencyDropdownLocator, currencyName);
+                    Helper.SelectOption(browse, currencyDropdownLocator, currency.ToString());
 
+                    //Region name string -> Region enum
+                    Region region = (Region)Enum.Parse(typeof(Region), regionName.Replace("-", "_"),false);
 
+                    WriteDatasPerPage(prodInEnum, region, currency, exchangeRate);
 
-                        //输出1 - 计算值
+                    ////遍历currency
+                    //foreach (string currencyName in Enum.GetNames(typeof(Currency)))
+                    //{
+                    //    Helper.SelectOption(browse, currencyDropdownLocator, currencyName);
 
-                        //输出2 - 实际值
-                    }
+                    //    WriteDatasPerPage(productObject,regionName,currencyName,)
+
+                    //    //输出1 - 计算值
+
+                    //    //输出2 - 实际值
+                    //}
                 }
             }
         }
